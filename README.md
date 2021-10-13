@@ -2,12 +2,12 @@
 
 This is part 1 of my project in [CS6650 - Building Scalable Distributed Systems](https://gortonator.github.io/bsds-6650/).
 
-The goal of this part is to implement an efficient multithreaded client, so that I could later use this to test a distributed server hosted on AWS EC2.
+The goal of this part is to implement an efficient multithreaded client, so that I could later use this to test against a distributed server.
 
 ## The scenario
 In this project, we are building a lift ticket reader system for a chain of ski resorts. The end goal is to be able to store all ski lift data as a basis for data analysis.
 
-In this part, we are building a client that generates requests and sends lift data to a server hosted in AWS, simply set up with Tomcat for now.
+In this part, we are building a multithreaded client that generates requests and sends lift data to a server hosted in AWS, simply set up on AWS with Tomcat for now.
 
 Requests are sent in 3 phases, each phase will spawn an amount of threads (ranging from 32 - 256), and each thread will be assigned to send multiple POST requests to the server.
 The whole description of the assignment can be found [here](https://gortonator.github.io/bsds-6650/assignments-2021/Assignment-1).
