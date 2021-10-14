@@ -2,7 +2,7 @@
 
 This is part 1 of my project in [CS6650 - Building Scalable Distributed Systems](https://gortonator.github.io/bsds-6650/).
 
-The goal of this part is to implement an efficient multithreaded client, so that I could later use this to test against a distributed server.
+The goal of this part is to implement an efficient multithreaded client, which could later be used to test against a distributed server.
 
 ## The scenario
 In this project, we are building a lift ticket reader system for a chain of ski resorts. The end goal is to be able to store all ski lift data as a basis for data analysis.
