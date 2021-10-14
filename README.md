@@ -51,7 +51,9 @@ Actual performance:
 ![](https://github.com/ptmphuong/distributed-a1/blob/master/ClientES2/plots/Wall%20time%20by%20number%20of%20threads.png)
 
 #### 3. Response latency 
+ 
 Requests are grouped by the second-th that request occurs since the program starts, the average values of the groups are plotted.
+ 
 ![](https://github.com/ptmphuong/distributed-a1/blob/master/ClientES2/plots/post_latency_32_legend.png)
 ![](https://github.com/ptmphuong/distributed-a1/blob/master/ClientES2/plots/post_latency_64.png)
 ![](https://github.com/ptmphuong/distributed-a1/blob/master/ClientES2/plots/post_latency_128.png)
