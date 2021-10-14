@@ -10,7 +10,7 @@ The project's goal is to build a lift ticket reader system for a ski resort chai
 In this part, I am building a multithreaded client that generates requests and sends lift data to a server hosted in AWS, simply set up with Tomcat for now.
 
 Requests are sent in 3 phases, each phase will spawn an amount of threads (ranging from 32 - 256), and each thread will be assigned to send multiple POST requests to the server.
-The whole description of the assignment can be found [here](https://gortonator.github.io/bsds-6650/assignments-2021/Assignment-1).
+The detailed requirements for phases and threads can be found [here](https://gortonator.github.io/bsds-6650/assignments-2021/Assignment-1).
 
 ## The design
 
