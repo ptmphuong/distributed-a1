@@ -49,8 +49,8 @@ public class Phase {
         logger.info("Phase " + this.phaseID + " start");
         submitTask();
         updateStatusRecord();
-        shutdown();
-        logger.info("Phase " + this.phaseID + " ends");
+//        shutdown();
+//        logger.info("Phase " + this.phaseID + " ends");
     }
 
     private void submitTask() throws InterruptedException {
@@ -72,11 +72,13 @@ public class Phase {
             signalCdl.countDown();
         }
 //        logger.info("Phase " + this.phaseID + " submits Task DONE");
+//        signalCdl.await();
     }
 
     private void updateStatusRecord() throws InterruptedException, ExecutionException {
 //        logger.info("Phase " + this.phaseID + " updates Task results");
         for (int i = 0; i < this.numThreads; i++) {
+            logger.info("Phase " + this.phaseID + ". i = " + i);
             Future<StatusRecord> statusRecordFuture = completionService.take();
             StatusRecord statusRecord = statusRecordFuture.get();
             this.totalSuccessPost += statusRecord.getTotalSuccess();
@@ -85,7 +87,7 @@ public class Phase {
 //        logger.info("Phase " + this.phaseID + " updates Task results DONE");
     }
 
-    private void shutdown() {
+    public void shutdown() {
         executorService.shutdown();
         logger.info("Phase " + this.phaseID + " shuts down DONE");
     }

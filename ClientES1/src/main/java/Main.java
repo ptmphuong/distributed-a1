@@ -3,7 +3,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 public class Main {
@@ -13,13 +12,13 @@ public class Main {
 
         logger.info("Prompt Input Info");
         // Ask for parameters via command line
-        InputInfo info = new InputInfo();
-        info.ask();
+//        InputInfo info = new InputInfo();
+//        info.ask();
 
         // Manually create info
-//        InputInfo info = new InputInfo(
-//                32, 20000, 40, 10, "34.230.35.172", "skier3"
-//        );
+        InputInfo info = new InputInfo(
+                16, 80, 40, 10, "23.22.233.19", "skier3"
+        );
 
         int numThreads = info.getNumThreads();
         int numThreadsQuarter = numThreads/4;
@@ -42,6 +41,10 @@ public class Main {
         phase2.execute();
         cld2.await();
         phase3.execute();
+
+        phase1.shutdown();
+        phase2.shutdown();
+        phase3.shutdown();
 
         long end = System.currentTimeMillis();
 
