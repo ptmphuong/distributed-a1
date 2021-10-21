@@ -4,6 +4,14 @@ This is part 1 of my project in [CS6650 - Building Scalable Distributed Systems]
 
 The goal of this part is to implement an efficient multithreaded client, which could later be used to test against a distributed server.
 
+* [ClientES1][clientES1_link]: all client features implemented.
+* [ClientES2][clientES2_link]: ClientES1 + additional latency, performance measurements implemention and visualization.
+* [ClientES3][clientES3_link]: ClientES2 + self exploration with benchmarking.
+
+[clientES1_link]: https://github.com/ptmphuong/distributed-a1/tree/master/ClientES1
+[clientES2_link]: https://github.com/ptmphuong/distributed-a1/tree/master/ClientES2
+[clientES3_link]: https://github.com/ptmphuong/distributed-a1/tree/master/ClientES3
+
 ## The scenario
 The project's goal is to build a lift ticket reader system for a ski resort chain. The system should be able to handle multiple request concurrently and store all ski lift data as a basis for data analysis.
 
@@ -14,14 +22,14 @@ The detailed requirements for phases and threads can be found [here](https://gor
 
 ## The design
 
-- Phases are signaled to start using CountDownLatches.
-- Each Phase stores 
-  * an ExecutionService to manage and schedule threads.
-  * a CompletionService made from this ExecutionService to store the stats of this thread when completed.
+- `Phases` are signaled to start using `CountDownLatches`.
+- Each `Phase` stores 
+  * an `ExecutionService` to manage and schedule threads.
+  * a `CompletionService` made from this `ExecutionService` to store the stats of this thread when completed.
   * a list of Client connections for threads to reuse.
-- Thread implements Callable<Stats>
-  * send out POST requests via OkHttp3 client
-  * Update performance stats (total failed/successful requests, latency) and return this result to CompletionService via Future type.
+- `Thread` implements `Callable<Stats>`
+  * send out POST requests via `OkHttp3Client`
+  * Update performance stats (total failed/successful requests, latency) and return this result to `CompletionService` via `Future` type.
   
 ## Performance metrics
 
