@@ -12,7 +12,7 @@ public class MainSingleT {
 
         // Manually create info
         InputInfo info = new InputInfo(
-                1, 1024, 40, 10, "54.226.99.110", "skier3"
+                1, 1, 40, 10, "127.0.0.1", "skier3"
         );;
 
         logger.info("Start main. Num threads = " + info.getNumThreads());
@@ -22,6 +22,7 @@ public class MainSingleT {
 
         Phase phase2 = new Phase(2, info, new CountDownLatch(0));
         phase2.execute();
+        phase2.shutdown();
 
         long phaseEnd = System.currentTimeMillis();
 
