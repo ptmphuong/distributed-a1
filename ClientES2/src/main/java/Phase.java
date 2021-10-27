@@ -51,7 +51,6 @@ public class Phase {
         logger.info("Phase " + this.phaseID + " start: " + start);
         submitTask();
         updateStatusRecord();
-        shutdown();
         long end = System.currentTimeMillis();
         logger.info("Phase " + this.phaseID + " end: " + end);
     }
@@ -90,7 +89,7 @@ public class Phase {
 //        logger.info("Phase " + this.phaseID + " updates Task results DONE");
     }
 
-    private void shutdown() {
+    public void shutdown() {
         executorService.shutdown();
 //        logger.info("Phase " + this.phaseID + " shuts down DONE");
     }

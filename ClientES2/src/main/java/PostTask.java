@@ -1,4 +1,5 @@
 import okhttp3.*;
+import org.json.JSONObject;
 import output.RequestInfo;
 
 import java.io.IOException;
@@ -8,9 +9,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 public class PostTask implements Callable<StatusRecord> {
-
     private final static Logger logger = Logger.getLogger(Phase.class.getName());
-
 
     private OkHttpClient clientOk;
     private int numPost;
@@ -63,13 +62,16 @@ public class PostTask implements Callable<StatusRecord> {
     }
 
     private RequestBody makeRequestBody() {
-        int time = this.phaseTime.generateRandom();
-        int liftID = this.generateRandomLiftNum();
-        RequestBody formBody = new FormBody.Builder()
-                .add("time", String.valueOf(time))
-                .add("liftID", String.valueOf(liftID))
-                .build();
-        return formBody;
+        int timeVal = this.phaseTime.generateRandom();
+        int liftIDVal = this.generateRandomLiftNum();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("time", timeVal);
+        jsonObject.put("liftID", liftIDVal);
+
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+        return body;
     }
 
     @Override
