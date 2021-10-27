@@ -20,7 +20,7 @@ public class PostTask implements Callable<StatusRecord> {
     public PostTask(int numPost, OkHttpClient clientOK, SkierIDRange skierIDRange, PhaseTime phaseTime, int numLifts, String ipAddress, String webAppName) {
         this.numPost = numPost;
         this.clientOk = clientOK;
-//        this.clientOk = new OkHttpClient();
+        this.clientOk = new OkHttpClient();
         this.skierIDRange = skierIDRange;
         this.phaseTime = phaseTime;
         this.liftNum = numLifts;
@@ -59,12 +59,6 @@ public class PostTask implements Callable<StatusRecord> {
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(JSON, jsonObject.toString());
-//        RequestBody body = RequestBody.create(jsonOjbject.toString(), JSON);
-//        RequestBody formBody = new FormBody.Builder()
-//                .add("time", String.valueOf(timeVal))
-//                .add("liftID", String.valueOf(liftIDVal))
-//                .build();
-
         return body;
     }
 
@@ -110,4 +104,5 @@ public class PostTask implements Callable<StatusRecord> {
 
         return urlBuilder.build();
     }
+
 }

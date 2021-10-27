@@ -49,7 +49,6 @@ public class Phase {
         logger.info("Phase " + this.phaseID + " start");
         submitTask();
         updateStatusRecord();
-//        shutdown();
 //        logger.info("Phase " + this.phaseID + " ends");
     }
 
@@ -57,10 +56,10 @@ public class Phase {
 //        logger.info("Phase " + this.phaseID + " submits Task");
         for (int i = 0; i < this.numThreads; i++) {
             SkierIDRange skierIDRange = new SkierIDRange(this.phaseID, inputInfo.getNumSkiers(), this.numThreads, i);
-            int cliendInd = i == 0 ? 0 : i/NUM_THREAD_PER_CLIENT;
+            int clientInd = i == 0 ? 0 : i/NUM_THREAD_PER_CLIENT;
             PostTask postTask = new PostTask(
                     this.numPostPerThread,
-                    this.clientList.get(cliendInd),
+                    this.clientList.get(clientInd),
                     skierIDRange,
                     this.phaseTime,
                     inputInfo.getNumLifts(),
@@ -72,13 +71,12 @@ public class Phase {
             signalCdl.countDown();
         }
 //        logger.info("Phase " + this.phaseID + " submits Task DONE");
-//        signalCdl.await();
     }
 
     private void updateStatusRecord() throws InterruptedException, ExecutionException {
 //        logger.info("Phase " + this.phaseID + " updates Task results");
         for (int i = 0; i < this.numThreads; i++) {
-            logger.info("Phase " + this.phaseID + ". i = " + i);
+//            logger.info("Phase " + this.phaseID + ". i = " + i);
             Future<StatusRecord> statusRecordFuture = completionService.take();
             StatusRecord statusRecord = statusRecordFuture.get();
             this.totalSuccessPost += statusRecord.getTotalSuccess();

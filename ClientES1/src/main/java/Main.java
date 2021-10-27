@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ public class Main {
 
         // Manually create info
         InputInfo info = new InputInfo(
-                16, 80, 40, 10, "23.22.233.19", "skier3"
+                16, 24, 40, 10, "localhost", "skier3"
         );
 
         int numThreads = info.getNumThreads();
@@ -34,6 +35,7 @@ public class Main {
         Phase phase2 = new Phase(2, info, cld2);
         Phase phase3 = new Phase(3, info, new CountDownLatch(0));
 
+        CheckPost.send(info);
         long start = System.currentTimeMillis();
 
         phase1.execute();
@@ -47,6 +49,7 @@ public class Main {
         phase3.shutdown();
 
         long end = System.currentTimeMillis();
+        CheckPost.send(info);
 
         logger.info("End phase");
 
@@ -64,7 +67,7 @@ public class Main {
         }
 
         long runTime = end - start;
-        double throughPut = totalPost / (runTime/1000);
+        double throughPut = totalPost / ((double) (runTime)/1000);
         String timeReport = String.format("Total post: %d, Total time (millis): %d", totalPost, runTime);
         System.out.println(timeReport);
         System.out.println("throughput (req/sec): " + throughPut);
