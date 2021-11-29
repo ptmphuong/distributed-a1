@@ -47,7 +47,7 @@ public class PostTask implements Callable<StatusRecord> {
             this.requestInfoList.add(requestInfo);
             return statusCode == 200;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("send post request failed: " + url + " ." + e.getMessage());
             return false;
         }
     }

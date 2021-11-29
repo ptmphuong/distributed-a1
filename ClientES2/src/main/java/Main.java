@@ -2,6 +2,7 @@ import output.CsvWriter;
 import output.RequestInfo;
 import output.RequestInfoList;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +21,11 @@ public class Main {
 //        info.ask();
 
         // Manually create info
+
+        String lbIp = "skier3LB-2075162823.us-east-1.elb.amazonaws.com";
+        String localhost = "localhost";
         InputInfo info = new InputInfo(
-                32, 128, 40, 10, "localhost", "skier3"
+                128, 20000, 40, 10, lbIp, "skier3_war"
         );
 
         int numThreads = info.getNumThreads();
@@ -36,7 +40,8 @@ public class Main {
         logger.info("Start main. Num threads = " + numThreads);
         logger.info("Start phase");
 
-        CheckPost.send(info);
+//        CheckPost.send(info);
+        LocalDateTime LDTStart = LocalDateTime.now();
         long start = System.currentTimeMillis();
 
         Phase phase1 = new Phase(1, info, cld1);
@@ -54,12 +59,16 @@ public class Main {
         phase3.shutdown();
 
         long end = System.currentTimeMillis();
-        CheckPost.send(info);
+//        CheckPost.send(info);
 
         logger.info("End phase");
+        LocalDateTime LDTEnd = LocalDateTime.now();
 
         List<Phase> allPhases = new ArrayList<>(Arrays.asList(phase1, phase2, phase3));
         int totalPost = 0;
+
+        System.out.println("Time start: " + LDTStart);
+        System.out.println("Time end: " + LDTEnd);
 
         System.out.println("-------PART 1-------");
         System.out.println(info);
@@ -84,7 +93,7 @@ public class Main {
             requestInfoListAll.addAll(p.getRequestInfoList());
         }
 
-        String csvPath = String.format("output_csv/threads%d_skiers%d.csv", info.getNumThreads(), info.getNumSkiers());
+        String csvPath = String.format("output_csv/threads%d_skiers%d_both.csv", info.getNumThreads(), info.getNumSkiers());
         CsvWriter w = new CsvWriter(csvPath, requestInfoListAll);
         w.write();
 

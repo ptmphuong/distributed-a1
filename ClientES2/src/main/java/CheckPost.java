@@ -7,16 +7,18 @@ import java.util.logging.Logger;
 public class CheckPost {
     private final static Logger logger = Logger.getLogger(CheckPost.class.getName());
     private static final int CHECK_ID = -1;
-    public static void send(InputInfo info) {
+    public static int send(InputInfo info) {
         OkHttpClient client = new OkHttpClient();
         String url = generateUrl(info);
         Request request = buildRequestOk(url);
         try (Response response = client.newCall(request).execute()) {
             int statusCode = response.code();
             logger.info(String.format("CHECK POST: %s --- statusCode: %d", url, statusCode));
+            return statusCode;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return -1;
     }
 
     private static RequestBody makeRequestBody() {

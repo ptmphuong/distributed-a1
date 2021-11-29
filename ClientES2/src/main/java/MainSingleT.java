@@ -10,31 +10,36 @@ public class MainSingleT {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
+        String ec2ip = "3.82.113.246";
+        String lbDN = "servlet-LB-647367063.us-east-1.elb.amazonaws.com";
         // Manually create info
         InputInfo info = new InputInfo(
-                1, 1024, 40, 10, "54.226.99.110", "skier3"
+                1, 1024, 40, 10, ec2ip, "skier3"
         );;
 
         logger.info("Start main. Num threads = " + info.getNumThreads());
         logger.info("Start phase");
 
-        long phaseStart = System.currentTimeMillis();
-
-        Phase phase2 = new Phase(2, info, new CountDownLatch(0));
-        phase2.execute();
-
-        long phaseEnd = System.currentTimeMillis();
-
-        logger.info("End phase");
-
-        String postReport = String.format("PhaseID: %d. Total success: %d, Total fail: %d", phase2.getPhaseID(), phase2.getTotalSuccessPost(), phase2.getTotalFailPost());
-        System.out.println(postReport);
-
-        long runTime = phaseEnd - phaseStart;
-        int totalPost = phase2.getTotalSuccessPost() + phase2.getTotalFailPost();
-        double throughPut = totalPost / (runTime / 1000);
-        String timeReport = String.format("Num threads: %d. Total post: %d, Total time (millis): %d", info.getNumThreads(), totalPost, runTime);
-        System.out.println(timeReport);
-        System.out.println("throughput (req/sec): " + throughPut);
+        int sendCheckResponse = CheckPost.send(info);
+        System.out.println("response code: " + sendCheckResponse);
+//
+//        long phaseStart = System.currentTimeMillis();
+//
+//        Phase phase2 = new Phase(2, info, new CountDownLatch(0));
+//        phase2.execute();
+//
+//        long phaseEnd = System.currentTimeMillis();
+//
+//        logger.info("End phase");
+//
+//        String postReport = String.format("PhaseID: %d. Total success: %d, Total fail: %d", phase2.getPhaseID(), phase2.getTotalSuccessPost(), phase2.getTotalFailPost());
+//        System.out.println(postReport);
+//
+//        long runTime = phaseEnd - phaseStart;
+//        int totalPost = phase2.getTotalSuccessPost() + phase2.getTotalFailPost();
+//        double throughPut = totalPost / (runTime / 1000);
+//        String timeReport = String.format("Num threads: %d. Total post: %d, Total time (millis): %d", info.getNumThreads(), totalPost, runTime);
+//        System.out.println(timeReport);
+//        System.out.println("throughput (req/sec): " + throughPut);
     }
 }
